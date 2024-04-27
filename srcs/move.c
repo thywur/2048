@@ -1,6 +1,6 @@
 #include "wkw.h"
 
-void	merge_right(int board[4][4])
+static void	merge_right(int board[4][4])
 {
 	int	i;
 	int	j;
@@ -63,7 +63,7 @@ void	move_right(int board[4][4])
 
 }
 
-void	merge_left(int board[4][4])
+static void	merge_left(int board[4][4])
 {
 	int	i;
 	int	j;
@@ -125,7 +125,7 @@ void	move_left(int board[4][4])
 	}
 }
 
-void	merge_up(int board[4][4])
+static void	merge_up(int board[4][4])
 {
 	int	i;
 	int	j;
@@ -187,7 +187,7 @@ void	move_up(int board[4][4])
 	}
 }
 
-void	merge_down(int board[4][4])
+static void	merge_down(int board[4][4])
 {
 	int	i;
 	int	j;
