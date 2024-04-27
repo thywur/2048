@@ -17,13 +17,18 @@
 #  define SIZE 4
 # endif
 
+enum e_const
+{
+	WIN_VALUE = 64,
+};
+
 int		init_ncurses(WINDOW *stdscr);
 
-void	move_right(int board[4][4], int *filled);
-void	move_left(int board[4][4], int *filled);
-void	move_up(int board[4][4], int *filled);
-void	move_down(int board[4][4], int *filled);
-
+int	move_right(int board[4][4], int *filled);
+int	move_left(int board[4][4], int *filled);
+int	move_up(int board[4][4], int *filled);
+int	move_down(int board[4][4], int *filled);
+int	can_merge(int board[4][4]);
 void	generate_tile(int board[4][4]);
 
 int		is_win(int board[SIZE][SIZE]);

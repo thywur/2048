@@ -11,7 +11,7 @@ int	is_win(int board[SIZE][SIZE])
 		j = 0;
 		while (j < SIZE)
 		{
-			if (board[i][j] == 2048) // ENUM
+			if (board[i][j] >= WIN_VALUE)
 				return (1);
 			j++;
 		}

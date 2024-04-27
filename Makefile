@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/04/27 14:41:37 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/04/27 14:51:09 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = \
 	generate_tile \
 	is_win \
 	main \
+	merge_check \
 	move \
 	ncurses_init \
 	welcome_screen \

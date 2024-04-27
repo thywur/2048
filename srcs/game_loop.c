@@ -19,7 +19,7 @@ void	print_board(int board[SIZE][SIZE])
 	}
 }
 
-void	draw_map(int board[SIZE][SIZE], int filled)
+void	draw_map(int board[SIZE][SIZE])
 {
 	int	i;
 	int	j;
@@ -27,13 +27,15 @@ void	draw_map(int board[SIZE][SIZE], int filled)
 	int tmp;
     int center_x = COLS / 2 - (SIZE * 8) / 2;
 	int	center_y = LINES / 2 - (SIZE * 4) / 2;
+	const char *win = "YOU WIN!";
+	const char *exitykey = "Press ESC (or Q) to exit";
 
 	(void)board;
 	clear();
 	print_board(board);
 	k = 0;
 	i = 0;
-	while (i <= SIZE * SIZE)
+	while (i <= SIZE * 4)
 	{
 		j = 0;
 		while (j <= SIZE * 8)
@@ -87,7 +89,11 @@ void	draw_map(int board[SIZE][SIZE], int filled)
 		}
 		i++;
 	}
-	mvprintw(0, center_x, "%d", filled);
+	if (is_win(board))
+	{
+		mvprintw(++i + center_y, COLS / 2 - ft_strlen(win) / 2, "%s", win);
+		mvprintw(++i + center_y, COLS / 2 - ft_strlen(exitykey) / 2, "%s", exitykey);
+	}
 	refresh();
 }
 
@@ -98,6 +104,7 @@ void	game_loop(void)
 	int		y;
 	int		filled;
 	int		player_input;
+	int		has_moved;
 
 	(void)player_input;
 	if (welcome_screen())
@@ -117,29 +124,31 @@ void	game_loop(void)
 			filled++;
 		}
 	}
-	draw_map(board, filled);
+	draw_map(board);
 	while (1)
 	{
 		int ch = getch();
 		if (ch == 27 || ch == 'q' || ch == 'Q')
 			break ;
 		else if (ch == KEY_UP)
-			move_up(board, &filled);
+			has_moved = move_up(board, &filled);
 		else if (ch == KEY_DOWN)
-			move_down(board, &filled);
+			has_moved =move_down(board, &filled);
 		else if (ch == KEY_LEFT)
-			move_left(board, &filled);
+			has_moved = move_left(board, &filled);
 		else if (ch == KEY_RIGHT)
-			move_right(board, &filled);
+			has_moved = move_right(board, &filled);
 		else
 			continue ;
+		if (has_moved && filled < SIZE * SIZE)
+		{
+			generate_tile(board);
+			filled++;
+		}
 		if (filled == SIZE * SIZE)
-			return ;
-		generate_tile(board);
-		filled++;
-		if (is_win(board))
-			return ;
-		draw_map(board, filled);
+			if (!can_merge(board))
+				break ;
+		draw_map(board);
 	}
 }
 
