@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/03/31 17:47:53 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/04/27 12:27:18 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ INCS = \
 
 # *** CONFIG ***************************************************************** #
 
-CFLAGS		=	-Wall -Wextra -Werror $(OFLAGS)
+CFLAGS		=	-Wall -Wextra $(OFLAGS)
 OFLAGS 		=
 
 CPPFLAGS 	= 	$(addprefix -I, $(INCS)) \
