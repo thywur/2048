@@ -1,6 +1,6 @@
 #include "wkw.h"
 
-static void	merge_right(int board[4][4])
+static void	merge_right(int board[4][4], int *filled)
 {
 	int	i;
 	int	j;
@@ -23,6 +23,7 @@ static void	merge_right(int board[4][4])
 						{
 							board[i][j] = board[i][j] * 2;
 							board[i][k] = 0;
+							filled--;
 						}
 					}
 					k--;
@@ -34,14 +35,14 @@ static void	merge_right(int board[4][4])
 	}
 }
 
-void	move_right(int board[4][4])
+void	move_right(int board[4][4], int *filled)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	i = 0;
-	merge_right(board);
+	merge_right(board, filled);
 	while (i < 4)
 	{
 		j = 3;
@@ -63,7 +64,7 @@ void	move_right(int board[4][4])
 
 }
 
-static void	merge_left(int board[4][4])
+static void	merge_left(int board[4][4], int *filled)
 {
 	int	i;
 	int	j;
@@ -86,6 +87,7 @@ static void	merge_left(int board[4][4])
 						{
 							board[i][j] = board[i][j] * 2;
 							board[i][k] = 0;
+							filled--;
 						}
 					}
 					k++;
@@ -97,14 +99,14 @@ static void	merge_left(int board[4][4])
 	}
 }
 
-void	move_left(int board[4][4])
+void	move_left(int board[4][4], int *filled)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	i = 0;
-	merge_left(board);
+	merge_left(board, filled);
 	while (i < 4)
 	{
 		j = 0;
@@ -125,7 +127,7 @@ void	move_left(int board[4][4])
 	}
 }
 
-static void	merge_up(int board[4][4])
+static void	merge_up(int board[4][4], int *filled)
 {
 	int	i;
 	int	j;
@@ -148,6 +150,7 @@ static void	merge_up(int board[4][4])
 						{
 							board[i][j] = board[i][j] * 2;
 							board[k][j] = 0;
+							filled--;
 						}
 					}
 					k++;
@@ -159,14 +162,14 @@ static void	merge_up(int board[4][4])
 	}
 }
 
-void	move_up(int board[4][4])
+void	move_up(int board[4][4], int *filled)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	j = 0;
-	merge_up(board);
+	merge_up(board, filled);
 	while (j < 4)
 	{
 		i = 0;
@@ -187,7 +190,7 @@ void	move_up(int board[4][4])
 	}
 }
 
-static void	merge_down(int board[4][4])
+static void	merge_down(int board[4][4], int *filled)
 {
 	int	i;
 	int	j;
@@ -210,6 +213,7 @@ static void	merge_down(int board[4][4])
 						{
 							board[i][j] = board[i][j] * 2;
 							board[k][j] = 0;
+							filled--;
 						}
 					}
 					k--;
@@ -221,14 +225,14 @@ static void	merge_down(int board[4][4])
 	}
 }
 
-void	move_down(int board[4][4])
+void	move_down(int board[4][4], int *filled)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	j = 0;
-	merge_down(board);
+	merge_down(board, filled);
 	while (j < 4)
 	{
 		i = 3;
