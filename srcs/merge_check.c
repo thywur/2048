@@ -22,6 +22,7 @@ static int	merge_check_right(int board[4][4])
 					{
 						if (board[i][j] == board[i][k])
 							can_merge++;
+						break;
 					}
 					k--;
 				}
@@ -55,6 +56,7 @@ static int	merge_check_left(int board[4][4])
 					{
 						if (board[i][j] == board[i][k])
 							can_merge++;
+						break;
 					}
 					k++;
 				}
@@ -89,6 +91,7 @@ static int	merge_check_up(int board[4][4])
 					{
 						if (board[i][j] == board[k][j])
 							can_merge++;
+						break;
 					}
 					k++;
 				}
@@ -122,6 +125,7 @@ static int	merge_check_down(int board[4][4])
 					{
 						if (board[i][j] == board[k][j])
 							can_merge++;
+						break;
 					}
 					k--;
 				}
