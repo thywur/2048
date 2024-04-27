@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <sys/types.h>
 
 int	count_score(int board[SIZE][SIZE])
 {
@@ -37,11 +38,10 @@ void	write_score(int score)
 	close(fd);
 }
 
-void	sort_tab(int *tab, int size)
+void	sort_tab(int *tab, size_t size)
 {
-	int	i;
-	int	j;
-	int	tmp;
+	size_t	i;
+	int		tmp;
 
 	i = 0;
 	while (i < size && i + 1 < size)
@@ -62,10 +62,9 @@ void	sort_scores(void)
 {
 	int		fd;
 	int		*tab;
-	int		i;
-	int		j;
+	size_t	i;
 	int		tmp;
-	int		size;
+	size_t	size;
 
 	fd = open("highscores.txt", O_RDWR | O_CREAT, 0644);
 	if (fd == -1)
