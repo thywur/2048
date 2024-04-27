@@ -60,33 +60,33 @@ void	sort_tab(int *tab, size_t size)
 
 void	sort_scores(void)
 {
-	int		fd;
+	FILE	*fd;
 	int		*tab;
 	size_t	i;
-	int		tmp;
 	size_t	size;
+	char	line[50];
 
-	fd = open("highscores.txt", O_RDWR | O_CREAT, 0644);
-	if (fd == -1)
+	fd = fopen("highscores.txt", "r");
+	if (!fd)
 		return ;
 	size = 0;
-	while (read(fd, &tmp, sizeof(int)))
+	while (fgets(line, 50, fd))
 		size++;
 	tab = malloc(sizeof(int) * size);
 	if (!tab)
 		return ;
-	lseek(fd, 0, SEEK_SET);
+	fseek(fd, 0, SEEK_SET);
 	i = 0;
-	while (read(fd, &tab[i], sizeof(int)))
-		i++;
-	close(fd);
+	while (fgets(line, 50, fd))
+		tab[i++] = atoi(line);
+	fclose(fd);
 	sort_tab(tab, size);
-	fd = open("highscores.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
+	fd = fopen("highscores.txt", "w+");
+	if (!fd)
 		return ;
 	i = 0;
 	while (i < size)
-		dprintf(fd, "%d\n", tab[i++]);
-	close(fd);
+		fprintf(fd, "%d\n", tab[i++]);
+	fclose(fd);
 	free(tab);
 }
