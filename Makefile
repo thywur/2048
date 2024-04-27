@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/04/27 14:51:09 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/04/28 01:04:37 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ OBJS = $(patsubst %.c,$(BUILD_DIR)%.o,$(SRCS))
 DEPS = $(patsubst %.o,%.d,$(OBJS))
 
 SRC = \
+	draw_board \
 	game_loop \
 	generate_tile \
 	is_win \
@@ -32,7 +33,7 @@ SRC = \
 	merge_check \
 	move \
 	ncurses_init \
-	welcome_screen \
+	asc_print_num \
 
 # *********** UTILS ********** #
 
@@ -41,6 +42,21 @@ SRC += $(addprefix $(UTILS_DIR),$(UTILS_SRC))
 UTILS_DIR = utils/
 UTILS_SRC = \
 	ft_strlen \
+	ft_intlen \
+	max \
+	min \
+
+# *********** SCREENS ********** #
+
+SRC += $(addprefix $(SCREENS_DIR),$(SCREENS_SRC))
+
+SCREENS_DIR = screens/
+SCREENS_SRC = \
+	error_screen \
+	menu_screen \
+	save_screen \
+	size_screen \
+	welcome_screen \
 
 # *** LIBRARIES && INCLUDES  ************************************************* #
 

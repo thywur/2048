@@ -8,6 +8,8 @@
 #include <sys/stat.h>
 #include <string.h>
 
+# define SIZE 4
+
 int	count_score(int board[SIZE][SIZE])
 {
 	int	i;

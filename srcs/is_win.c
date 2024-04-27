@@ -1,17 +1,17 @@
 #include "wkw.h"
 
-int	is_win(int board[SIZE][SIZE])
+int	is_win(int board[], int size)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < SIZE)
+	while (i < size)
 	{
 		j = 0;
-		while (j < SIZE)
+		while (j < size)
 		{
-			if (board[i][j] >= WIN_VALUE)
+			if (board[i * size + j] >= WIN_VALUE)
 				return (1);
 			j++;
 		}

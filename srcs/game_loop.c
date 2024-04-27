@@ -1,154 +1,150 @@
 #include "wkw.h"
 
-void	print_board(int board[SIZE][SIZE])
+# include <stdio.h>
+
+void	print_board(int board[], int size) // DEBUG
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
-	while (i < SIZE)
+	while (i < size)
 	{
 		j = 0;
-		while (j < SIZE)
+		while (j < size)
 		{
-			printf("%d ", board[i][j]);
+			dprintf(2, "%d ", board[i * size + j]);
 			j++;
 		}
-		printf("\n");
 		i++;
+	}
+	dprintf(2, "\n");
+}
+
+static void	init_board(int board[], int size)
+{
+	int		i;
+	int		j;
+	int		filled = 0;
+
+	i = 0;
+	while (i < size * size)
+	{
+		board[i] = 0;
+		i++;
+	}
+	while (filled < 2)
+	{
+		i = rand() % size;
+		j = rand() % size;
+		if (board[i * size + j] == 0)
+		{
+			if (rand() % 10 < 9)
+				board[i * size + j] = 2;
+			else
+				board[i * size + j] = 4;
+			filled++;
+		}
 	}
 }
 
-void	draw_map(int board[SIZE][SIZE])
+int	party_loop(int size)
 {
-	int	i;
-	int	j;
-	int	k;
-	int tmp;
-    int center_x = COLS / 2 - (SIZE * 8) / 2;
-	int	center_y = LINES / 2 - (SIZE * 4) / 2;
-	const char *win = "YOU WIN!";
-	const char *exitykey = "Press ESC (or Q) to exit";
+	int		filled = 0;
+	int		has_moved = 0;
+	int		board[size * size];
+	int		gamestate = 0;
 
-	(void)board;
-	clear();
-	print_board(board);
-	k = 0;
-	i = 0;
-	while (i <= SIZE * 4)
+	for (int i = 0; i < size * size; i++)
+			board[i] = 0;
+
+	srand(time(NULL));
+	filled = 2;
+	init_board(&(board[0]), size);
+	if (LINES > size * 2 + 6 && COLS > size * 15 + 2)
+		draw_board(&(board[0]), size, 0);
+	else
+		error_screen("Terminal too small");
+	while (gamestate < 2)
 	{
-		j = 0;
-		while (j <= SIZE * 8)
+		int ch = getch();
+		if (ch == 27)
+			return (1) ;
+		else if (ch == ' ' && gamestate & 1)
+			return (2);
+		else if (ch == 'r' || ch == 'R')
+			return (0);
+		else if (ch == KEY_UP)
+			has_moved = move_up(board, size, &filled);
+		else if (ch == KEY_DOWN)
+			has_moved =move_down(board, size, &filled);
+		else if (ch == KEY_LEFT)
+			has_moved = move_left(board, size, &filled);
+		else if (ch == KEY_RIGHT)
+			has_moved = move_right(board, size, &filled);
+		else
 		{
-			if (i % 4 == 0)
-			{
-				if (j % 8 == 0)
-				{
-					if (i == 0)
-					{
-						if (j == 0)
-							mvprintw(i + center_y, j + center_x, "╔");
-						else if (j == SIZE * 8)
-							mvprintw(i + center_y, j + center_x, "╗");
-						else
-							mvprintw(i + center_y, j + center_x, "╦");
-					}
-					else if (i == SIZE * SIZE)
-					{
-						if (j == 0)
-							mvprintw(i + center_y, j + center_x, "╚");
-						else if (j == SIZE * 8)
-							mvprintw(i + center_y, j + center_x, "╝");
-						else
-							mvprintw(i + center_y, j + center_x, "╩");
-					}
-					else
-					{
-						if (j == 0)
-							mvprintw(i + center_y, j + center_x, "╠");
-						else if (j == SIZE * 8)
-							mvprintw(i + center_y, j + center_x, "╣");
-						else
-							mvprintw(i + center_y, j + center_x, "╬");
-					}
-				}
-				else
-					mvprintw(i + center_y, j + center_x, "═");
-			}
+			if (LINES > size * 6 + 6 && COLS > size * 15 + 2)
+				draw_board(&(board[0]), size, gamestate);
 			else
-				if (j % 8 == 0)
-					mvprintw(i + center_y, j + center_x, "║");
-			if ((i + 2) % 4 == 0 && (j + 6) % 8 == 0)
-			{
-				tmp = board[k / SIZE][k % SIZE];
-				if (tmp != 0)
-					mvprintw(i + center_y, j + center_x, "%5d", tmp);
-				k++;
-			}
-			j++;
+				error_screen("Terminal too small");
+			continue ;
 		}
-		i++;
+		if (has_moved && filled < size * size)
+		{
+			generate_tile(board, size);
+			filled++;
+		}
+		if (is_win(board, size))
+			gamestate = 1;
+		if (filled == size * size && !can_merge(board, size))
+				gamestate += 2;
+		if (LINES > size * 6 + 6 && COLS > size * 15 + 2)
+			draw_board(&(board[0]), size, gamestate);
+		else
+			error_screen("Terminal too small");
 	}
-	if (is_win(board))
+	draw_board(&(board[0]), size, gamestate);
+	while (1)
 	{
-		mvprintw(++i + center_y, COLS / 2 - ft_strlen(win) / 2, "%s", win);
-		mvprintw(++i + center_y, COLS / 2 - ft_strlen(exitykey) / 2, "%s", exitykey);
+		int ch = getch();
+		if (ch == 27)
+			return (1) ;
+		else if (ch == 'r' || ch == 'R')
+			return (0);
+		else if (ch == ' ' && gamestate & 1)
+			return (2);
 	}
-	refresh();
+	return (0);
 }
 
 void	game_loop(void)
 {
-	int		board[SIZE][SIZE] = {0};
-	int		x;
-	int		y;
-	int		filled;
-	int		player_input;
-	int		has_moved;
+	int		size = MIN_SIZE;
+	int		ret;
+	int		score = 0;
+	char	name[5] = "AAAA";
 
-	(void)player_input;
 	if (welcome_screen())
 		return ;
-	srand(time(NULL));
-	filled = 0;
-	while (filled < 2)
-	{
-		x = rand() % SIZE;
-		y = rand() % SIZE;
-		if (board[x][y] == 0)
-		{
-			if (rand() % 10 < 9)
-				board[x][y] = 2;
-			else
-				board[x][y] = 4;
-			filled++;
-		}
-	}
-	draw_map(board);
 	while (1)
 	{
-		int ch = getch();
-		if (ch == 27 || ch == 'q' || ch == 'Q')
-			break ;
-		else if (ch == KEY_UP)
-			has_moved = move_up(board, &filled);
-		else if (ch == KEY_DOWN)
-			has_moved =move_down(board, &filled);
-		else if (ch == KEY_LEFT)
-			has_moved = move_left(board, &filled);
-		else if (ch == KEY_RIGHT)
-			has_moved = move_right(board, &filled);
-		else
-			continue ;
-		if (has_moved && filled < SIZE * SIZE)
+		if (menu_screen(&size))
+			return ;
+		name[0] = 'A';
+		name[1] = 'A';
+		name[2] = 'A';
+		name[3] = 'A';
+		score = 0;
+		ret = party_loop(size);
+		if (ret == 1)
+			return ;
+		else if (ret == 2)
 		{
-			generate_tile(board);
-			filled++;
+			if (save_screen(score, name))
+				return ;
+			// save_score(score, name);
 		}
-		if (filled == SIZE * SIZE)
-			if (!can_merge(board))
-				break ;
-		draw_map(board);
 	}
 }
 

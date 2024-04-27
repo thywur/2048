@@ -5,12 +5,19 @@
 
 # include <unistd.h>
 
+int	is_power_of_two(int n)
+{
+	return (n > 1 && (n & (n - 1)) == 0);
+}
+
 int	main(void)
 {
 	WINDOW *win = NULL;
 
-	if (SIZE < 4 || SIZE > 5)
+	if (!is_power_of_two(WIN_VALUE))
+	{
 		return (1);
+	}
 
 	if (init_ncurses(win))
 	{

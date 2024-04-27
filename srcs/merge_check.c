@@ -1,6 +1,6 @@
 #include "wkw.h"
 
-static int	merge_check_right(int board[4][4])
+static int	merge_check_right(int board[], int size)
 {
 	int	i;
 	int	j;
@@ -8,19 +8,19 @@ static int	merge_check_right(int board[4][4])
 	int	can_merge = 0;
 
 	i = 0;
-	while (i < 4)
+	while (i < size)
 	{
-		j = 3;
+		j = size - 1;
 		while (j > 0)
 		{
-			if (board[i][j] != 0)
+			if (board[i * size + j] != 0)
 			{
 				k = j - 1;
 				while (k >= 0)
 				{
-					if (board[i][k] != 0)
+					if (board[i * size + k] != 0)
 					{
-						if (board[i][j] == board[i][k])
+						if (board[i * size + j] == board[i * size + k])
 							can_merge++;
 						break;
 					}
@@ -34,7 +34,7 @@ static int	merge_check_right(int board[4][4])
 	return (can_merge);
 }
 
-static int	merge_check_left(int board[4][4])
+static int	merge_check_left(int board[], int size)
 {
 	int	i;
 	int	j;
@@ -42,19 +42,19 @@ static int	merge_check_left(int board[4][4])
 	int	can_merge = 0;
 
 	i = 0;
-	while (i < 4)
+	while (i < size)
 	{
 		j = 0;
-		while (j < 3)
+		while (j < size - 1)
 		{
-			if (board[i][j] != 0)
+			if (board[i * size + j] != 0)
 			{
 				k = j + 1;
-				while (k < 4)
+				while (k < size)
 				{
-					if (board[i][k] != 0)
+					if (board[i * size + k] != 0)
 					{
-						if (board[i][j] == board[i][k])
+						if (board[i * size + j] == board[i * size + k])
 							can_merge++;
 						break;
 					}
@@ -69,7 +69,7 @@ static int	merge_check_left(int board[4][4])
 }
 
 
-static int	merge_check_up(int board[4][4])
+static int	merge_check_up(int board[], int size)
 {
 	int	i;
 	int	j;
@@ -77,19 +77,19 @@ static int	merge_check_up(int board[4][4])
 	int	can_merge = 0;
 
 	j = 0;
-	while (j < 4)
+	while (j < size)
 	{
 		i = 0;
-		while (i < 3)
+		while (i < size - 1)
 		{
-			if (board[i][j] != 0)
+			if (board[i * size + j] != 0)
 			{
 				k = i + 1;
-				while (k < 4)
+				while (k < size)
 				{
-					if (board[k][j] != 0)
+					if (board[k * size + j] != 0)
 					{
-						if (board[i][j] == board[k][j])
+						if (board[i * size + j] == board[k * size + j])
 							can_merge++;
 						break;
 					}
@@ -103,7 +103,7 @@ static int	merge_check_up(int board[4][4])
 	return (can_merge);
 }
 
-static int	merge_check_down(int board[4][4])
+static int	merge_check_down(int board[], int size)
 {
 	int	i;
 	int	j;
@@ -111,19 +111,19 @@ static int	merge_check_down(int board[4][4])
 	int	can_merge = 0;
 
 	j = 0;
-	while (j < 4)
+	while (j < size)
 	{
-		i = 3;
+		i = size - 1;
 		while (i > 0)
 		{
-			if (board[i][j] != 0)
+			if (board[i * size + j] != 0)
 			{
 				k = i - 1;
 				while (k >= 0)
 				{
-					if (board[k][j] != 0)
+					if (board[k * size + j] != 0)
 					{
-						if (board[i][j] == board[k][j])
+						if (board[i * size + j] == board[k * size + j])
 							can_merge++;
 						break;
 					}
@@ -137,15 +137,15 @@ static int	merge_check_down(int board[4][4])
 	return (can_merge);
 }
 
-int	can_merge(int board[4][4])
+int	can_merge(int board[], int size)
 {
-	if (merge_check_up(board))
+	if (merge_check_up(board, size))
 		return (1);
-	if (merge_check_down(board))
+	if (merge_check_down(board, size))
 		return (1);
-	if (merge_check_left(board))
+	if (merge_check_left(board, size))
 		return (1);
-	if (merge_check_right(board))
+	if (merge_check_right(board, size))
 		return (1);
 	return (0);
 }

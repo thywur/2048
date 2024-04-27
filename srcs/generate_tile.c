@@ -1,19 +1,19 @@
 #include "wkw.h"
 
-void	generate_tile(int board[4][4])
+void	generate_tile(int board[], int size)
 {
 	int	x;
 	int	y;
 
-	x = rand() % 4;
-	y = rand() % 4;
-	while (board[x][y] != 0)
+	x = rand() % size;
+	y = rand() % size;
+	while (board[x * size + y] != 0)
 	{
-		x = rand() % 4;
-		y = rand() % 4;
+		x = rand() % size;
+		y = rand() % size;
 	}
 	if (rand() % 10 < 9)
-		board[x][y] = 2;
+		board[x * size + y] = 2;
 	else
-		board[x][y] = 4;
+		board[x * size + y] = 4;
 }
