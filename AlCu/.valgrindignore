@@ -1,0 +1,24 @@
+{
+    leak init_ncurses
+    Memcheck:Leak 
+    ...
+    fun:init_ncurses
+}
+{
+    leak wrefresh
+    Memcheck:Leak 
+    ...
+    fun:wrefresh
+}
+{
+    leak wgetch
+    Memcheck:Leak 
+    ...
+    fun:wgetch
+}
+{
+    leak mvprintw
+    Memcheck:Leak 
+    ...
+    fun:mvprintw
+}
