@@ -24,7 +24,7 @@ static int	merge_right(int board[4][4], int *filled)
 						{
 							board[i][j] = board[i][j] * 2;
 							board[i][k] = 0;
-							filled--;
+							(*filled)--;
 							moves++;
 						}
 					}
@@ -94,7 +94,7 @@ static int	merge_left(int board[4][4], int *filled)
 						{
 							board[i][j] = board[i][j] * 2;
 							board[i][k] = 0;
-							filled--;
+							(*filled)--;
 							moves++;
 						}
 					}
@@ -164,7 +164,7 @@ static int	merge_up(int board[4][4], int *filled)
 						{
 							board[i][j] = board[i][j] * 2;
 							board[k][j] = 0;
-							filled--;
+							(*filled)--;
 							moves++;
 						}
 					}
@@ -234,7 +234,7 @@ static int	merge_down(int board[4][4], int *filled)
 						{
 							board[i][j] = board[i][j] * 2;
 							board[k][j] = 0;
-							filled--;
+							(*filled)--;
 							moves++;
 						}
 					}

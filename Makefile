@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/04/27 11:19:16 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/04/27 14:41:37 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,21 @@ OBJS = $(patsubst %.c,$(BUILD_DIR)%.o,$(SRCS))
 DEPS = $(patsubst %.o,%.d,$(OBJS))
 
 SRC = \
+	game_loop \
+	generate_tile \
+	is_win \
 	main \
+	move \
 	ncurses_init \
+	welcome_screen \
+
+# *********** UTILS ********** #
+
+SRC += $(addprefix $(UTILS_DIR),$(UTILS_SRC))
+
+UTILS_DIR = utils/
+UTILS_SRC = \
+	ft_strlen \
 
 # *** LIBRARIES && INCLUDES  ************************************************* #
 
@@ -76,6 +89,16 @@ ifneq ($(LAST_MODE),$(MODE))
 $(NAME) : FORCE
 endif
 
+# *** SIZE ******************************************************************* #
+
+SIZE ?=
+
+ifeq ($(SIZE),4)
+CFLAGS += -D SIZE=4
+else ifeq ($(SIZE),5)
+CFLAGS += -D SIZE=5
+endif
+
 # *** MISC ******************************************************************* #
 
 LOGFILE = $(MAKE_DIR).mklog
@@ -99,7 +122,7 @@ $(NAME) : $(LIBS_PATH) $(OBJS) | PREMAKE
 ██╔═══╝ ████╔╝██║╚════██║██╔══██╗\n\
 ███████╗╚██████╔╝     ██║╚█████╔╝\n\
 ╚══════╝ ╚═════╝      ╚═╝ ╚════╝ \n\
-			$(RESET)@kchillon @alermolo\n"
+		      $(RESET)@kchillon @alermolo\n"
 
 
 
