@@ -116,7 +116,6 @@ void	sort_scores(void)
 	FILE	*fd;
 	char	**tab;
 	size_t	i;
-	int		tmp;
 	size_t	size;
 	char	line[100];
 
@@ -129,7 +128,8 @@ void	sort_scores(void)
 	tab = malloc(sizeof(char *) * (size + 1));
 	if (!tab)
 		return ;
-	fseek(fd, 0, SEEK_SET);
+	if (fseek(fd, 0, SEEK_SET) == -1)
+		return ;
 	i = 0;
 	while (fgets(line, 100, fd))
 	{
@@ -148,6 +148,33 @@ void	sort_scores(void)
 		fprintf(fd, "%s", tab[i++]);
 	fclose(fd);
 	free_tab(tab);
+}
+
+char	**get_scores(void)
+{
+	FILE	*fd;
+	char	**scores;
+	size_t	i;
+	size_t	size;
+	char	line[100];
+
+	fd = fopen("highscores.txt", "r");
+	if (!fd)
+		return (NULL);
+	size = 0;
+	while (fgets(line, 100, fd))
+		size++;
+	scores = malloc(sizeof(char *) * (size + 1));
+	if (!scores)
+		return (NULL);
+	if (fseek(fd, 0, SEEK_SET) == -1)
+		return (NULL);
+	i = 0;
+	while (fgets(line, 100, fd))
+		scores[i++] = strdup(line);
+	scores[i] = 0;
+	fclose(fd);
+	return (scores);
 }
 
 // int	main()
