@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/04/28 17:38:42 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/04/28 17:42:53 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -180,13 +180,11 @@ print :
 clean :
 	-for f in $(dir $(LIBS_PATH)); do $(MAKE) -s -C $$f $@; done
 	rm -rf $(BUILD_DIR)
-	@printf "$(BOLD)(╯°□°)╯︵ ┻━┻ $(NAME) building files removed!$(RESET)\n"
 
 .PHONY : fclean
 fclean :
 	-for f in $(dir $(LIBS_PATH)); do $(MAKE) -s -C $$f $@; done
 	rm -rf $(MAKE_DIR) $(NAME)
-	@printf "$(BOLD)(╯°□°)╯︵ ┻━┻ $(NAME) files removed!$(RESET)\n"
 
 .PHONY : re
 re : fclean
