@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/04/28 17:42:33 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/04/28 17:56:40 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -157,6 +157,7 @@ bonus :
 
 .PHONY : scam
 scam :
+	@mkdir -p $(MAKE_DIR)
 	@echo "$(MODE)" > $(MODE_TRACE)
 	@$(MAKE) -C bonus
 	cp bonus/2048 2048
