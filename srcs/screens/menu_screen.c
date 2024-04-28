@@ -59,7 +59,7 @@ static void	print_title(void)
 
 int	menu_screen(int *size)
 {
-	const char *controls = {"       [↑/↓] to change size, [→] or [⏎] to confirm, [ESC] to quit"};
+	const char *controls = {"       [↑/↓] to navigate, [→] or [⏎] to confirm, [ESC] to quit"};
 	const char *play[2] = {"PLAY", "   ► PLAY ◄"};
 	const char *size_selector[2] = {"GRID SIZE", "    ► GRID SIZE ◄"};
 	const char *scores[2] = {"SCORES", "   ► SCORES ◄"};

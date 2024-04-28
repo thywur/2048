@@ -14,12 +14,12 @@
 # define EMPTY 0
 # define ERROR -1
 
-# define MAX_SIZE 10
+# define MAX_SIZE 6
 # define MIN_SIZE 4
 
 enum e_const
 {
-	WIN_VALUE = 64,
+	WIN_VALUE = 2048,
 };
 
 int		init_ncurses(WINDOW *stdscr);
