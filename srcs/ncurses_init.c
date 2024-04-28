@@ -15,38 +15,26 @@ static int set_cursed_values()
         return 1;
     if (start_color() == ERR)
         return 1;
-    // if (assume_default_colors(COLOR_WHITE, COLOR_BLACK) == ERR) // Noir / Blanc
-    //     return 1;
-    if (init_pair(1, COLOR_WHITE, COLOR_BLACK) == ERR) // Noir / Blanc
+    if (init_pair(1, COLOR_WHITE, COLOR_BLACK) == ERR)
         return 1;
-    if (init_pair(2, COLOR_CYAN, COLOR_BLACK) == ERR) // Noir / Cyan
+    if (init_pair(2, COLOR_CYAN, COLOR_BLACK) == ERR)
         return 1;
-    if (init_pair(3, COLOR_RED, COLOR_BLACK) == ERR) // Noir / Rouge
+    if (init_pair(3, COLOR_RED, COLOR_BLACK) == ERR)
         return 1;
-    if (init_pair(4, COLOR_BLACK, COLOR_CYAN) == ERR) // Noir / Cyan
+    if (init_pair(4, COLOR_BLACK, COLOR_CYAN) == ERR)
         return 1;
-    if (init_pair(5, COLOR_BLACK, COLOR_RED) == ERR) // Noir / Rouge
+    if (init_pair(5, COLOR_BLACK, COLOR_RED) == ERR)
         return 1;
-    if (init_pair(6, COLOR_BLACK, COLOR_BLUE) == ERR) // Noir / Bleu
+    if (init_pair(6, COLOR_BLACK, COLOR_BLUE) == ERR)
         return 1;
-    if (init_pair(7, COLOR_BLACK, COLOR_GREEN) == ERR) // Noir / Vert
+    if (init_pair(7, COLOR_BLACK, COLOR_GREEN) == ERR)
         return 1;
-    if (init_pair(8, COLOR_BLACK, COLOR_MAGENTA) == ERR) // Noir / Magenta
+    if (init_pair(8, COLOR_BLACK, COLOR_MAGENTA) == ERR)
         return 1;
-    if (init_pair(9, COLOR_BLACK, COLOR_YELLOW) == ERR) // Noir / Jaune
+    if (init_pair(9, COLOR_BLACK, COLOR_YELLOW) == ERR)
         return 1;
-    // if (init_pair(4, COLOR_WHITE, COLOR_RED) == ERR) // Blanc / Rouge
-    //     return 1;
-    // if (init_pair(6, COLOR_GREEN, COLOR_BLACK) == ERR) // Vert / Noir
-    //     return 1;
-    // if (init_pair(7, COLOR_MAGENTA, COLOR_BLACK) == ERR) // Magenta / Noir
-    //     return 1;
-    // if (init_pair(9, COLOR_BLUE, COLOR_BLACK) == ERR) // Bleu / Noir
-    //     return 1;
-    // if (init_pair(10, COLOR_YELLOW, COLOR_BLACK) == ERR) // Jaune / Noir
-    //     return 1;
-    // if (init_pair(2, 8, COLOR_BLACK) == ERR) // Gris / Noir
-    //     return 1;
+    if (init_pair(10, COLOR_BLACK, COLOR_WHITE) == ERR)
+        return 1;
     timeout(1000);
     return 0;
 }

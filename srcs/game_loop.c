@@ -40,9 +40,9 @@ static void	init_board(size_t board[], int size)
 		if (board[i * size + j] == 0)
 		{
 			if (rand() % 10 < 9)
-				board[i * size + j] = 512;
+				board[i * size + j] = 2;
 			else
-				board[i * size + j] = 1024;
+				board[i * size + j] = 4;
 			filled++;
 		}
 	}
@@ -95,10 +95,7 @@ int	party_loop(int size, int *score, int highscore)
 			generate_tile(board, size);
 			filled++;
 		}
-		if (is_win(board, size))
-			gamestate = 1;
-		if (filled == size * size && !can_merge(board, size))
-				gamestate += 2;
+		gamestate = update_gamestate(board, size, filled);
 		if (LINES > size * 6 + 6 && COLS > size * 15 + 2)
 			draw_board(&(board[0]), size, gamestate, *score, highscore);
 		else

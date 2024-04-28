@@ -31,7 +31,8 @@ int		move_down(size_t board[], int size, int *filled, int *score);
 int		can_merge(size_t board[], int size);
 void	generate_tile(size_t board[], int size);
 
-int		is_win(size_t board[], int size);
+int		update_gamestate(size_t board[], int size, int filled);
+size_t	biggest(size_t board[], int size);
 
 void	game_loop(void);
 

@@ -13,7 +13,7 @@ void	generate_tile(size_t board[], int size)
 		y = rand() % size;
 	}
 	if (rand() % 10 < 9)
-		board[x * size + y] = 512;
+		board[x * size + y] = 2;
 	else
-		board[x * size + y] = 1024;
+		board[x * size + y] = 4;
 }

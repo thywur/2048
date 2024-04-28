@@ -14,8 +14,10 @@ static void	ft_start_color(int num)
 		attron(COLOR_PAIR(8));
 	else if (num == 512 || num == 1024)
 		attron(COLOR_PAIR(5));
-	else if (num == 2048)
+	else if (num == 2048 || num == 4096)
 		attron(COLOR_PAIR(9));
+	else
+		attron(COLOR_PAIR(10));
 }
 
 static void	ft_end_color(int num)
@@ -32,8 +34,10 @@ static void	ft_end_color(int num)
 		attroff(COLOR_PAIR(8));
 	else if (num == 512 || num == 1024)
 		attroff(COLOR_PAIR(5));
-	else if (num == 2048)
+	else if (num == 2048 || num == 4096)
 		attroff(COLOR_PAIR(9));
+	else
+		attroff(COLOR_PAIR(10));
 }
 
 static void	draw_ascii(size_t board[], int size)
@@ -213,28 +217,6 @@ static void	draw_simple(size_t board[], int size)
 		}
 		i++;
 	}
-}
-
-static int	biggest(size_t board[], int size)
-{
-	int	i;
-	int	j;
-	size_t	biggest;
-
-	biggest = 0;
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			if (board[i * size + j] > biggest)
-				biggest = board[i * size + j];
-			j++;
-		}
-		i++;
-	}
-	return (biggest);
 }
 
 void	draw_board(size_t board[], int size, int gamestate, int score, int high)

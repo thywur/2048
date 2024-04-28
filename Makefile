@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/04/28 14:27:58 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/04/28 16:15:45 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,14 @@ SRC = \
 	draw_board \
 	game_loop \
 	generate_tile \
-	is_win \
+	update_gamestate \
 	main \
 	merge_check \
 	move \
 	ncurses_init \
 	asc_print_num \
 	score \
+	biggest \
 
 # *********** UTILS ********** #
 
