@@ -28,7 +28,7 @@ int		move_left(int board[], int size, int *filled, int *score);
 int		move_up(int board[], int size, int *filled, int *score);
 int		move_down(int board[], int size, int *filled, int *score);
 int		can_merge(int board[], int size);
-int		generate_tile(int board[], int size);
+void	generate_tile(int board[], int size);
 
 int		is_win(int board[], int size);
 

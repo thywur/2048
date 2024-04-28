@@ -52,7 +52,7 @@ int	party_loop(int size, int *score, int highscore)
 {
 	int		filled = 0;
 	int		has_moved = 0;
-	int		board[size * size];
+	size_t	board[size * size];
 	int		gamestate = 0;
 
 	for (int i = 0; i < size * size; i++)
@@ -92,7 +92,7 @@ int	party_loop(int size, int *score, int highscore)
 		}
 		if (has_moved && filled < size * size)
 		{
-			*score += generate_tile(board, size);
+			generate_tile(board, size);
 			filled++;
 		}
 		if (is_win(board, size))
