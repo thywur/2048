@@ -18,17 +18,17 @@
 
 enum e_const
 {
-	WIN_VALUE = 64,
+	WIN_VALUE = 2048,
 };
 
 int		init_ncurses(WINDOW *stdscr);
 
-int		move_right(int board[], int size, int *filled);
-int		move_left(int board[], int size, int *filled);
-int		move_up(int board[], int size, int *filled);
-int		move_down(int board[], int size, int *filled);
+int		move_right(int board[], int size, int *filled, int *score);
+int		move_left(int board[], int size, int *filled, int *score);
+int		move_up(int board[], int size, int *filled, int *score);
+int		move_down(int board[], int size, int *filled, int *score);
 int		can_merge(int board[], int size);
-void	generate_tile(int board[], int size);
+int		generate_tile(int board[], int size);
 
 int		is_win(int board[], int size);
 
@@ -37,11 +37,21 @@ void	game_loop(void);
 void	error_screen(char *str);
 int		welcome_screen();
 int		menu_screen(int *size);
-int		save_screen(int	score, char name[5]);
+int		save_screen(int	score, char name[5], int size);
 int		size_screen(int *size);
-void	draw_board(int board[], int size, int gamestate);
+int		scores_screen();
+
+void	draw_board(int board[], int size, int gamestate, int score, int high);
 
 void	asc_print_num(int y, int x, int num);
+int		save_score(int score, char *name, int size);
+int		get_highscore(int size);
+// int		sort_scores();
+void	sort_scores(char **scores);
+char	**get_scores(void);
+void	free_tab(char **tab);
+
+int		ft_compare(const void *a, const void *b);
 
 // utils
 int		ft_strlen(const char *s);

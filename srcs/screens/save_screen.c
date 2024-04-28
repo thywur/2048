@@ -57,12 +57,10 @@ static void	print_title(void)
 	}
 }
 
-int save_screen(int	score, char name[5])
+int save_screen(int	score, char name[5], int size)
 {
 	const char	*controls = {"       [↑/↓] to scroll trough letters, [←/→] to move cursor, [⏎] to confirm, [ESC] to quit"};
 	const char	letters[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	// const char	*play[2] = {"PLAY", "   ► PLAY ◄"};
-	// const char	*size_selector[2] = {"GRID SIZE", "    ► GRID SIZE ◄"};
 	// const char	*scores[2] = {"SCORES", "   ► SCORES ◄"};
 	int			selected = 0;
 	int			value[4] = {0};
@@ -77,29 +75,30 @@ int save_screen(int	score, char name[5])
 		print_title();
 		mvprintw(center_y + 1, center_x - ft_strlen(controls) / 2, "%s", controls);
 		attron(A_BOLD);
-		mvprintw(center_y + 3, center_x - 3 + selected * 2, "⮝");
+		mvprintw(center_y + 3, center_x - ft_intlen(score), "%d", score);
+		mvprintw(center_y + 5, center_x - 4 + selected * 2, "⮝");
 		if (selected == 0)
 			attron(A_BLINK);
-		mvprintw(center_y + 4, center_x - 3, "%c", letters[value[0]]);
+		mvprintw(center_y + 6, center_x - 4, "%c", letters[value[0]]);
 		if (selected == 0)
 			attroff(A_BLINK);
 		if (selected == 1)
 			attron(A_BLINK);
-		mvprintw(center_y + 4, center_x - 1, "%c", letters[value[1]]);
+		mvprintw(center_y + 6, center_x - 2, "%c", letters[value[1]]);
 		if (selected == 1)
 			attroff(A_BLINK);
 		if (selected == 2)
 			attron(A_BLINK);
-		mvprintw(center_y + 4, center_x + 1, "%c", letters[value[2]]);
+		mvprintw(center_y + 6, center_x, "%c", letters[value[2]]);
 		if (selected == 2)
 			attroff(A_BLINK);
 		if (selected == 3)
 			attron(A_BLINK);
-		mvprintw(center_y + 4, center_x + 3, "%c", letters[value[3]]);
+		mvprintw(center_y + 6, center_x + 2, "%c", letters[value[3]]);
 		if (selected == 3)
 			attroff(A_BLINK);
 		attroff(A_BLINK);
-		mvprintw(center_y + 5, center_x - 3 + selected * 2, "⮟");
+		mvprintw(center_y + 7, center_x - 4 + selected * 2, "⮟");
 		attroff(A_BOLD);
 		refresh();
 
@@ -130,6 +129,7 @@ int save_screen(int	score, char name[5])
 			name[1] = letters[value[1]];
 			name[2] = letters[value[2]];
 			name[3] = letters[value[3]];
+			save_score(score, name, size);
 			return 0;
 		}
 	}

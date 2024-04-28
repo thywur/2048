@@ -22,6 +22,10 @@ void	asc_print_num(int y, int x, int num)
 
 	tmp = ft_square_root(num);
 	len = ft_strlen(asc_numbers[tmp][0]);
+	if (tmp >= 16)
+		len -= 6;
+	if (tmp >= 17)
+		len -= 2;
 	i = 0;
 	while (i < 5)
 	{

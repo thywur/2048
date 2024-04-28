@@ -1,6 +1,6 @@
 #include "wkw.h"
 
-static int	merge_right(int board[], int size, int *filled)
+static int	merge_right(int board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -25,6 +25,7 @@ static int	merge_right(int board[], int size, int *filled)
 							board[i * size + j] = board[i * size + j] * 2;
 							board[i * size + k] = 0;
 							(*filled)--;
+							*score += board[i * size + j];
 							moves++;
 						}
 						break;
@@ -39,14 +40,14 @@ static int	merge_right(int board[], int size, int *filled)
 	return (moves);
 }
 
-int	move_right(int board[], int size, int *filled)
+int	move_right(int board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	i = 0;
-	int moves = merge_right(board, size, filled);
+	int moves = merge_right(board, size, filled, score);
 	while (i < size)
 	{
 		j = size - 1;
@@ -71,7 +72,7 @@ int	move_right(int board[], int size, int *filled)
 	return (moves);
 }
 
-static int	merge_left(int board[], int size, int *filled)
+static int	merge_left(int board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -96,6 +97,7 @@ static int	merge_left(int board[], int size, int *filled)
 							board[i * size + j] = board[i * size + j] * 2;
 							board[i * size + k] = 0;
 							(*filled)--;
+							*score += board[i * size + j];
 							moves++;
 						}
 						break;
@@ -110,14 +112,14 @@ static int	merge_left(int board[], int size, int *filled)
 	return (moves);
 }
 
-int	move_left(int board[], int size, int *filled)
+int	move_left(int board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	i = 0;
-	int moves = merge_left(board, size, filled);
+	int moves = merge_left(board, size, filled, score);
 	while (i < size)
 	{
 		j = 0;
@@ -142,7 +144,7 @@ int	move_left(int board[], int size, int *filled)
 	return (moves);
 }
 
-static int	merge_up(int board[], int size, int *filled)
+static int	merge_up(int board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -167,6 +169,7 @@ static int	merge_up(int board[], int size, int *filled)
 							board[i * size + j] = board[i * size + j] * 2;
 							board[k * size + j] = 0;
 							(*filled)--;
+							*score += board[i * size + j];
 							moves++;
 						}
 						break;
@@ -181,14 +184,14 @@ static int	merge_up(int board[], int size, int *filled)
 	return (moves);
 }
 
-int	move_up(int board[], int size, int *filled)
+int	move_up(int board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	j = 0;
-	int moves = merge_up(board, size, filled);
+	int moves = merge_up(board, size, filled, score);
 	while (j < size)
 	{
 		i = 0;
@@ -213,7 +216,7 @@ int	move_up(int board[], int size, int *filled)
 	return (moves);
 }
 
-static int	merge_down(int board[], int size, int *filled)
+static int	merge_down(int board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -238,6 +241,7 @@ static int	merge_down(int board[], int size, int *filled)
 							board[i * size + j] = board[i * size + j] * 2;
 							board[k * size + j] = 0;
 							(*filled)--;
+							*score += board[i * size + j];
 							moves++;
 						}
 						break;
@@ -252,14 +256,14 @@ static int	merge_down(int board[], int size, int *filled)
 	return (moves);
 }
 
-int	move_down(int board[], int size, int *filled)
+int	move_down(int board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
 	int	k;
 
 	j = 0;
-	int moves = merge_down(board, size, filled);
+	int moves = merge_down(board, size, filled, score);
 	while (j < size)
 	{
 		i = size - 1;

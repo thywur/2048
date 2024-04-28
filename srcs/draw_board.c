@@ -42,7 +42,7 @@ static void	draw_ascii(int board[], int size)
 	int	j;
 	int	k;
 	int tmp;
-	int	case_width = 41;
+	int	case_width = 42;
 	int	case_height = 8;
     int center_x = COLS / 2 - (size * case_width) / 2;
 	int	center_y = LINES / 2 - (size * case_height) / 2;
@@ -215,7 +215,29 @@ static void	draw_simple(int board[], int size)
 	}
 }
 
-void	draw_board(int board[], int size, int gamestate)
+static int	biggest(int board[], int size)
+{
+	int	i;
+	int	j;
+	int	biggest;
+
+	biggest = 0;
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			if (board[i * size + j] > biggest)
+				biggest = board[i * size + j];
+			j++;
+		}
+		i++;
+	}
+	return (biggest);
+}
+
+void	draw_board(int board[], int size, int gamestate, int score, int high)
 {
 	const char *win = "YOU WON!";
 	const char *controls[] = {"        [↑/↓/←/→] to move, [R] to return to menu, [ESC] to quit",
@@ -225,31 +247,32 @@ void	draw_board(int board[], int size, int gamestate)
 	// const char *endkey = "Press Enter to end the game";
 	const char *highscore = "HIGHSCORE: ";
 	const char *yourscore = "YOUR SCORE: ";
+	int		center_x = COLS / 2;
 
 	clear();
-	if (LINES > size * 8 + 10 && COLS > size * 41 + 2)
+	if (LINES > size * 8 + 10 && COLS > size * 42 + 2 && biggest(board, size) <= 65536)
 	{
-		mvprintw(1, COLS / 2 - size * 41 / 2, "%s%d", highscore, 9999);
-		mvprintw(1, COLS / 2 + size * 41 / 2 - ft_strlen(yourscore) - ft_intlen(0), "%s%d", yourscore, 0);
+		mvprintw(1, center_x - size * 42 / 2, "%s%d", highscore, high);
+		mvprintw(1, center_x + size * 42 / 2 - ft_strlen(yourscore) - ft_intlen(score), "%s%d", yourscore, score);
 		draw_ascii(board, size);
 	}
 	else
 	{
-		mvprintw(1, COLS / 2 - size * 13 / 2, "%s%d", highscore, 9999);
-		mvprintw(1, COLS / 2 + size * 13 / 2 - ft_strlen(yourscore) - ft_intlen(0), "%s%d", yourscore, 0);
+		mvprintw(1, center_x - size * 13 / 2, "%s%d", highscore, high);
+		mvprintw(1, center_x + size * 13 / 2 - ft_strlen(yourscore) - ft_intlen(score), "%s%d", yourscore, score);
 		draw_simple(board, size);
 	}
 	
 	if (gamestate & 1)
-		mvprintw(1, COLS / 2 - ft_strlen (win) / 2, "%s", win);
+		mvprintw(1, center_x - ft_strlen (win) / 2, "%s", win);
 	if (gamestate == 0)
-		mvprintw(LINES - 2, COLS / 2 - ft_strlen(controls[0]) / 2, "%s", controls[0]);
+		mvprintw(LINES - 2, center_x - ft_strlen(controls[0]) / 2, "%s", controls[0]);
 	else if (gamestate == 1)
-		mvprintw(LINES - 2, COLS / 2 - ft_strlen(controls[1]) / 2, "%s", controls[1]);
+		mvprintw(LINES - 2, center_x - ft_strlen(controls[1]) / 2, "%s", controls[1]);
 	else if (gamestate == 2)
-		mvprintw(LINES - 2, COLS / 2 - ft_strlen(controls[2]) / 2, "%s", controls[2]);
+		mvprintw(LINES - 2, center_x - ft_strlen(controls[2]) / 2, "%s", controls[2]);
 	else if (gamestate == 3)
-		mvprintw(LINES - 2, COLS / 2 - ft_strlen(controls[3]) / 2, "%s", controls[3]);
+		mvprintw(LINES - 2, center_x - ft_strlen(controls[3]) / 2, "%s", controls[3]);
 	refresh();
 }
 

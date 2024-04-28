@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/04/28 01:04:37 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/04/28 14:27:58 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC = \
 	move \
 	ncurses_init \
 	asc_print_num \
+	score \
 
 # *********** UTILS ********** #
 
@@ -57,6 +58,7 @@ SCREENS_SRC = \
 	save_screen \
 	size_screen \
 	welcome_screen \
+	scores_screen \
 
 # *** LIBRARIES && INCLUDES  ************************************************* #
 

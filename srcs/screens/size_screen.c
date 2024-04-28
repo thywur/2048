@@ -60,7 +60,7 @@ static void	print_title(void)
 int	size_screen(int *size)
 {
 	const char *controls = {"       [↑/↓] to change size, [→] or [⏎] to confirm, [ESC] to quit"};
-	const char *options[] = {"4", "5", "6", "7", "8", "9", "10"};
+	const char *options[] = {"4", "5", "6"};
 
 	while (1)
 	{
@@ -70,7 +70,7 @@ int	size_screen(int *size)
 		clear();
 		print_title();
 		mvprintw(center_y + 1, center_x - ft_strlen(controls) / 2, "%s", controls);
-		for (int i = 0; i < 7; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			if (i == *size - 4)
 				attron(A_REVERSE);

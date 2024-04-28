@@ -106,8 +106,8 @@ int	menu_screen(int *size)
 			}
 			else if (selected == 2)
 			{
-				// if (scores_screen())
-				// 	return 1;
+				if (scores_screen())
+					return 1;
 			}
 		}
 	}

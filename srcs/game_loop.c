@@ -40,15 +40,15 @@ static void	init_board(int board[], int size)
 		if (board[i * size + j] == 0)
 		{
 			if (rand() % 10 < 9)
-				board[i * size + j] = 2;
+				board[i * size + j] = 512;
 			else
-				board[i * size + j] = 4;
+				board[i * size + j] = 1024;
 			filled++;
 		}
 	}
 }
 
-int	party_loop(int size)
+int	party_loop(int size, int *score, int highscore)
 {
 	int		filled = 0;
 	int		has_moved = 0;
@@ -62,7 +62,7 @@ int	party_loop(int size)
 	filled = 2;
 	init_board(&(board[0]), size);
 	if (LINES > size * 2 + 6 && COLS > size * 15 + 2)
-		draw_board(&(board[0]), size, 0);
+		draw_board(&(board[0]), size, 0, *score, highscore);
 	else
 		error_screen("Terminal too small");
 	while (gamestate < 2)
@@ -75,24 +75,24 @@ int	party_loop(int size)
 		else if (ch == 'r' || ch == 'R')
 			return (0);
 		else if (ch == KEY_UP)
-			has_moved = move_up(board, size, &filled);
+			has_moved = move_up(board, size, &filled, score);
 		else if (ch == KEY_DOWN)
-			has_moved =move_down(board, size, &filled);
+			has_moved =move_down(board, size, &filled, score);
 		else if (ch == KEY_LEFT)
-			has_moved = move_left(board, size, &filled);
+			has_moved = move_left(board, size, &filled, score);
 		else if (ch == KEY_RIGHT)
-			has_moved = move_right(board, size, &filled);
+			has_moved = move_right(board, size, &filled, score);
 		else
 		{
 			if (LINES > size * 6 + 6 && COLS > size * 15 + 2)
-				draw_board(&(board[0]), size, gamestate);
+				draw_board(&(board[0]), size, gamestate, *score, highscore);
 			else
 				error_screen("Terminal too small");
 			continue ;
 		}
 		if (has_moved && filled < size * size)
 		{
-			generate_tile(board, size);
+			*score += generate_tile(board, size);
 			filled++;
 		}
 		if (is_win(board, size))
@@ -100,13 +100,16 @@ int	party_loop(int size)
 		if (filled == size * size && !can_merge(board, size))
 				gamestate += 2;
 		if (LINES > size * 6 + 6 && COLS > size * 15 + 2)
-			draw_board(&(board[0]), size, gamestate);
+			draw_board(&(board[0]), size, gamestate, *score, highscore);
 		else
 			error_screen("Terminal too small");
 	}
-	draw_board(&(board[0]), size, gamestate);
 	while (1)
 	{
+		if (LINES > size * 6 + 6 && COLS > size * 15 + 2)
+			draw_board(&(board[0]), size, gamestate, *score, highscore);
+		else
+			error_screen("Terminal too small");
 		int ch = getch();
 		if (ch == 27)
 			return (1) ;
@@ -123,6 +126,7 @@ void	game_loop(void)
 	int		size = MIN_SIZE;
 	int		ret;
 	int		score = 0;
+	int		highscore = 0;
 	char	name[5] = "AAAA";
 
 	if (welcome_screen())
@@ -136,14 +140,14 @@ void	game_loop(void)
 		name[2] = 'A';
 		name[3] = 'A';
 		score = 0;
-		ret = party_loop(size);
+		highscore = get_highscore(size);
+		ret = party_loop(size, &score, highscore);
 		if (ret == 1)
 			return ;
 		else if (ret == 2)
 		{
-			if (save_screen(score, name))
+			if (save_screen(score, name, size))
 				return ;
-			// save_score(score, name);
 		}
 	}
 }
