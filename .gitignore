@@ -4,3 +4,4 @@
 .mklog
 .trace
 out
+.gitignore
