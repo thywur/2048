@@ -1,7 +1,0 @@
-2048
-*.o
-*.d
-.mklog
-.trace
-out
-.gitignore
