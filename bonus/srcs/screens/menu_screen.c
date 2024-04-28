@@ -17,7 +17,7 @@ static void	print_title(void)
 								"RRRWBBB      RRRWBBBRRRWBBB      RRRWBBWRRWBBBRRRWBBB ",
 								"RRRWWWWWWWWBBWRRWWWWWWWWBBB      RRRWBBBRRRWWWWWWBBB  "};
 	int center = COLS / 2;
-	int line = LINES / 2 - 4;
+	int line = LINES / 2;
 	int width = 53;
 	int	height = 7;
 	const char *char_selector[] = {" ", "░", "▒", "▓", "█"};
@@ -26,7 +26,7 @@ static void	print_title(void)
 	if (LINES < 15 || COLS < 55)
 	{
 		attron(A_BOLD);
-		mvprintw(line, center - 2, "2048");
+		mvprintw(line - 1, center - 2, "2048");
 		attroff(A_BOLD);
 		return ;
 	}
@@ -38,7 +38,7 @@ static void	print_title(void)
 				attron(COLOR_PAIR(2));
 			else if (color_map[i][j] == 'B')
 				attron(COLOR_PAIR(3));
-			mvprintw(line - 3 + i, center - width / 2 + j, "%s", char_selector[title[i][j] - '0']);
+			mvprintw(line - 3 + i - 4, center - width / 2 + j, "%s", char_selector[title[i][j] - '0']);
 			if (color_map[i][j] == 'R')
 				attroff(COLOR_PAIR(2));
 			else if (color_map[i][j] == 'B')
@@ -47,10 +47,13 @@ static void	print_title(void)
 	}
 }
 
-int	size_screen(int *size)
+int	menu_screen(int *size)
 {
-	const char *controls = {"       [↑/↓] to change size, [→] or [⏎] to confirm, [ESC] to quit"};
-	const char *options[] = {"4", "5", "6"};
+	const char *controls = {"       [↑/↓] to navigate, [→] or [⏎] to confirm, [ESC] to quit"};
+	const char *play[2] = {"PLAY", "   ► PLAY ◄"};
+	const char *size_selector[2] = {"GRID SIZE", "    ► GRID SIZE ◄"};
+	const char *scores[2] = {"SCORES", "   ► SCORES ◄"};
+	int	selected = 0;
 
 	while (1)
 	{
@@ -60,13 +63,11 @@ int	size_screen(int *size)
 		clear();
 		print_title();
 		mvprintw(center_y + 1, center_x - ft_strlen(controls) / 2, "%s", controls);
-		for (int i = 0; i < 3; i++)
-		{
-			if (i == *size - 4)
-				attron(A_REVERSE);
-			mvprintw(center_y + 3 + i, center_x - ft_strlen(options[i]), "%s", options[i]);
-			attroff(A_REVERSE);
-		}
+		attron(A_BOLD);
+		mvprintw(center_y + 3, center_x - ft_strlen(play[selected == 0]) / 2, "%s", play[selected == 0]);
+		mvprintw(center_y + 4, center_x - ft_strlen(size_selector[selected == 1]) / 2, "%s", size_selector[selected == 1]);
+		mvprintw(center_y + 5, center_x - ft_strlen(scores[selected == 2]) / 2, "%s", scores[selected == 2]);
+		attroff(A_BOLD);
 		refresh();
 
 		int ch = getch();
@@ -76,15 +77,28 @@ int	size_screen(int *size)
 		}
 		else if (ch == KEY_UP)
 		{
-			*size = max(*size - 1, MIN_SIZE);
+			selected = max(selected - 1, 0);
 		}
 		else if (ch == KEY_DOWN)
 		{
-			*size = min(*size + 1, MAX_SIZE);
+			selected = min(selected + 1, 2);
 		}
 		else if (ch == KEY_ENTER || ch == KEY_RIGHT || ch == 10)
 		{
-			break;
+			if (selected == 0)
+			{
+				return 0;
+			}
+			else if (selected == 1)
+			{
+				if (size_screen(size))
+					return 1;
+			}
+			else if (selected == 2)
+			{
+				if (scores_screen())
+					return 1;
+			}
 		}
 	}
 	return 0;

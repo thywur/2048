@@ -6,7 +6,7 @@
 #    By: kchillon <kchillon@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/14 22:03:24 by ibertran          #+#    #+#              #
-#    Updated: 2024/04/28 17:39:37 by kchillon         ###   ########lyon.fr    #
+#    Updated: 2024/04/28 17:38:42 by kchillon         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC = \
 	move \
 	ncurses_init \
 	asc_print_num \
+	score \
 	biggest \
 
 # *********** UTILS ********** #
@@ -55,8 +56,10 @@ SCREENS_DIR = screens/
 SCREENS_SRC = \
 	error_screen \
 	menu_screen \
+	save_screen \
 	size_screen \
 	welcome_screen \
+	scores_screen \
 
 # *** LIBRARIES && INCLUDES  ************************************************* #
 
@@ -108,6 +111,16 @@ ifneq ($(LAST_MODE),$(MODE))
 $(NAME) : FORCE
 endif
 
+# *** SIZE ******************************************************************* #
+
+SIZE ?=
+
+ifeq ($(SIZE),4)
+CFLAGS += -D SIZE=4
+else ifeq ($(SIZE),5)
+CFLAGS += -D SIZE=5
+endif
+
 # *** MISC ******************************************************************* #
 
 LOGFILE = $(MAKE_DIR).mklog
@@ -150,16 +163,6 @@ $(BUILD_DIR)%.o : $(SRCS_DIR)%.c | count PREMAKE
 
 $(LIBS_PATH): FORCE | PREMAKE
 	@$(MAKE) -C $(@D)
-
-.PHONY : bonus
-bonus :
-	$(MAKE) scam MODE=bonus
-
-.PHONY : scam
-scam :
-	@echo "$(MODE)" > $(MODE_TRACE)
-	@$(MAKE) -C bonus
-	cp bonus/2048 2048
 
 .PHONY : debug
 debug :

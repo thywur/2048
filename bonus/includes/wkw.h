@@ -17,6 +17,8 @@
 # define MAX_SIZE 6
 # define MIN_SIZE 4
 
+# define SCORE_PATH "bonus/highscores.txt"
+
 enum e_const
 {
 	WIN_VALUE = 2048,

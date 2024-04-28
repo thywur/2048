@@ -223,21 +223,23 @@ void	draw_board(size_t board[], int size, int gamestate, int score, int high)
 	const char *win = "YOU WON!";
 	const char *loose = "YOU LOSE!";
 	const char *controls[] = {"        [↑/↓/←/→] to move, [R] to return to menu, [ESC] to quit",
-								"        [↑/↓/←/→] to move, [R] to return to menu, [ESC] to quit",
+								"        [↑/↓/←/→] to move, [R] to return to menu, [Space] to save your score, [ESC] to quit",
 								"        [R] to return to menu, [ESC] to quit",
-								"        [R] to return to menu, [ESC] to quit"};
+								"        [R] to return to menu, [Space] to save your score, [ESC] to quit"};
+	const char *highscore = "HIGHSCORE: ";
 	const char *yourscore = "YOUR SCORE: ";
 	int		center_x = COLS / 2;
 
-	(void)high;
 	clear();
 	if (LINES > size * 8 + 10 && COLS > size * 42 + 2 && biggest(board, size) <= 65536)
 	{
+		mvprintw(1, center_x - size * 42 / 2, "%s%d", highscore, high);
 		mvprintw(1, center_x + size * 42 / 2 - ft_strlen(yourscore) - ft_nblen(score), "%s%d", yourscore, score);
 		draw_ascii(board, size);
 	}
 	else
 	{
+		mvprintw(1, center_x - size * 13 / 2, "%s%d", highscore, high);
 		mvprintw(1, center_x + size * 13 / 2 - ft_strlen(yourscore) - ft_nblen(score), "%s%d", yourscore, score);
 		draw_simple(board, size);
 	}

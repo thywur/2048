@@ -1,5 +1,15 @@
 #include "wkw.h"
 
+/*
+░▒▓███████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  
+       ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+       ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░░▒▓██████▓▒░  
+░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
+░▒▓████████▓▒░▒▓████████▓▒░      ░▒▓█▓▒░░▒▓██████▓▒░  
+*/
+
 static void	print_title(void)
 {
 	const char *title[] = {		"123444444432112344444444321234321123432112344444432100",
@@ -17,13 +27,13 @@ static void	print_title(void)
 								"RRRWBBB      RRRWBBBRRRWBBB      RRRWBBWRRWBBBRRRWBBB ",
 								"RRRWWWWWWWWBBWRRWWWWWWWWBBB      RRRWBBBRRRWWWWWWBBB  "};
 	int center = COLS / 2;
-	int line = LINES / 2 - 4;
+	int line = LINES / 2;
 	int width = 53;
 	int	height = 7;
 	const char *char_selector[] = {" ", "░", "▒", "▓", "█"};
 
 
-	if (LINES < 15 || COLS < 55)
+	if (LINES < 10 || COLS < 55)
 	{
 		attron(A_BOLD);
 		mvprintw(line, center - 2, "2048");
@@ -47,45 +57,21 @@ static void	print_title(void)
 	}
 }
 
-int	size_screen(int *size)
+int welcome_screen()
 {
-	const char *controls = {"       [↑/↓] to change size, [→] or [⏎] to confirm, [ESC] to quit"};
-	const char *options[] = {"4", "5", "6"};
+	const char	*anykey = "Press any key to start...";
+    int			center_x = COLS / 2;
 
-	while (1)
+	clear();
+	print_title();
+	mvprintw(LINES - 2, center_x - ft_strlen(anykey) / 2, "%s", anykey);
+	timeout(-1);
+	int ch = getch();
+	if (ch == 27)
 	{
-		int center_x = COLS / 2;
-		int center_y = LINES / 2;
-
-		clear();
-		print_title();
-		mvprintw(center_y + 1, center_x - ft_strlen(controls) / 2, "%s", controls);
-		for (int i = 0; i < 3; i++)
-		{
-			if (i == *size - 4)
-				attron(A_REVERSE);
-			mvprintw(center_y + 3 + i, center_x - ft_strlen(options[i]), "%s", options[i]);
-			attroff(A_REVERSE);
-		}
-		refresh();
-
-		int ch = getch();
-		if (ch == 27)
-		{
-			return 1;
-		}
-		else if (ch == KEY_UP)
-		{
-			*size = max(*size - 1, MIN_SIZE);
-		}
-		else if (ch == KEY_DOWN)
-		{
-			*size = min(*size + 1, MAX_SIZE);
-		}
-		else if (ch == KEY_ENTER || ch == KEY_RIGHT || ch == 10)
-		{
-			break;
-		}
+		return ERROR;
 	}
-	return 0;
+	timeout(1000);
+	refresh();
+	return EMPTY;
 }

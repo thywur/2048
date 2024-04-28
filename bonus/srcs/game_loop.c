@@ -49,6 +49,8 @@ int	party_loop(int size, size_t *score, int highscore)
 		int ch = getch();
 		if (ch == 27)
 			return (1) ;
+		else if (ch == ' ' && gamestate & 1)
+			return (2);
 		else if (ch == 'r' || ch == 'R')
 			return (0);
 		else if (ch == KEY_UP)
@@ -89,6 +91,8 @@ int	party_loop(int size, size_t *score, int highscore)
 			return (1) ;
 		else if (ch == 'r' || ch == 'R')
 			return (0);
+		else if (ch == ' ' && gamestate & 1)
+			return (2);
 	}
 	return (0);
 }
@@ -112,9 +116,15 @@ void	game_loop(void)
 		name[2] = 'A';
 		name[3] = 'A';
 		score = 0;
+		highscore = get_highscore(size);
 		ret = party_loop(size, &score, highscore);
 		if (ret == 1)
 			return ;
+		else if (ret == 2)
+		{
+			if (save_screen(score, name, size))
+				return ;
+		}
 	}
 }
 
