@@ -6,6 +6,7 @@
 # include <locale.h>
 # include <stdlib.h>
 # include <time.h>
+# include <sys/types.h>
 
 # define WIDTH 800
 # define HEIGHT 600
@@ -23,14 +24,14 @@ enum e_const
 
 int		init_ncurses(WINDOW *stdscr);
 
-int		move_right(int board[], int size, int *filled, int *score);
-int		move_left(int board[], int size, int *filled, int *score);
-int		move_up(int board[], int size, int *filled, int *score);
-int		move_down(int board[], int size, int *filled, int *score);
-int		can_merge(int board[], int size);
-void	generate_tile(int board[], int size);
+int		move_right(size_t board[], int size, int *filled, int *score);
+int		move_left(size_t board[], int size, int *filled, int *score);
+int		move_up(size_t board[], int size, int *filled, int *score);
+int		move_down(size_t board[], int size, int *filled, int *score);
+int		can_merge(size_t board[], int size);
+void	generate_tile(size_t board[], int size);
 
-int		is_win(int board[], int size);
+int		is_win(size_t board[], int size);
 
 void	game_loop(void);
 
@@ -41,7 +42,7 @@ int		save_screen(int	score, char name[5], int size);
 int		size_screen(int *size);
 int		scores_screen();
 
-void	draw_board(int board[], int size, int gamestate, int score, int high);
+void	draw_board(size_t board[], int size, int gamestate, int score, int high);
 
 void	asc_print_num(int y, int x, int num);
 int		save_score(int score, char *name, int size);
@@ -55,7 +56,7 @@ int		ft_compare(const void *a, const void *b);
 
 // utils
 int		ft_strlen(const char *s);
-int		ft_intlen(int n);
+int		ft_nblen(size_t n);
 int		max(int a, int b);
 int		min(int a, int b);
 

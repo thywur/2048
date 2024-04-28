@@ -10,14 +10,14 @@ static void	print_scores_of_size(char **scores, int size, int x)
 	{
 		if (atoi(scores[i] + 14) == size)
 		{
-			mvprintw(3 + offset, center_x + x - ft_intlen(atoi(scores[i])) / 2, "%d", atoi(scores[i]));
+			mvprintw(3 + offset, center_x + x - ft_nblen(atoi(scores[i])) / 2, "%d", atoi(scores[i]));
 			offset++;
 		}
 		i++;
 	}
 }
 
-int	scores_screen()
+int	scores_screen(void)
 {
 	const char *controls = {"[R] to return to menu, [ESC] to quit"};
 	char	**scores;

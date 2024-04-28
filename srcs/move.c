@@ -1,6 +1,6 @@
 #include "wkw.h"
 
-static int	merge_right(int board[], int size, int *filled, int *score)
+static int	merge_right(size_t board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -40,7 +40,7 @@ static int	merge_right(int board[], int size, int *filled, int *score)
 	return (moves);
 }
 
-int	move_right(int board[], int size, int *filled, int *score)
+int	move_right(size_t board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -72,7 +72,7 @@ int	move_right(int board[], int size, int *filled, int *score)
 	return (moves);
 }
 
-static int	merge_left(int board[], int size, int *filled, int *score)
+static int	merge_left(size_t board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -112,7 +112,7 @@ static int	merge_left(int board[], int size, int *filled, int *score)
 	return (moves);
 }
 
-int	move_left(int board[], int size, int *filled, int *score)
+int	move_left(size_t board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -144,7 +144,7 @@ int	move_left(int board[], int size, int *filled, int *score)
 	return (moves);
 }
 
-static int	merge_up(int board[], int size, int *filled, int *score)
+static int	merge_up(size_t board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -184,7 +184,7 @@ static int	merge_up(int board[], int size, int *filled, int *score)
 	return (moves);
 }
 
-int	move_up(int board[], int size, int *filled, int *score)
+int	move_up(size_t board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -216,7 +216,7 @@ int	move_up(int board[], int size, int *filled, int *score)
 	return (moves);
 }
 
-static int	merge_down(int board[], int size, int *filled, int *score)
+static int	merge_down(size_t board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;
@@ -256,7 +256,7 @@ static int	merge_down(int board[], int size, int *filled, int *score)
 	return (moves);
 }
 
-int	move_down(int board[], int size, int *filled, int *score)
+int	move_down(size_t board[], int size, int *filled, int *score)
 {
 	int	i;
 	int	j;

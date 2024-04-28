@@ -21,7 +21,7 @@ void	print_board(int board[], int size) // DEBUG
 	dprintf(2, "\n");
 }
 
-static void	init_board(int board[], int size)
+static void	init_board(size_t board[], int size)
 {
 	int		i;
 	int		j;

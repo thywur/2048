@@ -1,13 +1,13 @@
 #include "wkw.h"
 
 // /*
-// ░▒▓███████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░  
-//        ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
-//        ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
-//  ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░░▒▓██████▓▒░  
-// ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
-// ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
-// ░▒▓████████▓▒░▒▓████████▓▒░      ░▒▓█▓▒░░▒▓██████▓▒░  
+// ░▒▓███████▓▒░░▒▓████████▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░
+//        ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
+//        ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
+//  ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░░▒▓██████▓▒░
+// ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
+// ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░
+// ░▒▓████████▓▒░▒▓████████▓▒░      ░▒▓█▓▒░░▒▓██████▓▒░
 // */
 
 static void	print_title(void)
@@ -20,10 +20,10 @@ static void	print_title(void)
 								"123432100000012343211234321000000123432123432112343210",
 								"123444444443212344444444321000000123432112344444432100"};
 	const char *color_map[] = {	"RRRWWWWWWWBBBRRRWWWWWWWWBBWRRWBBBRRRWBBBRRRWWWWWWBBB  ",
-								"       RRRWBBWRRWBBBRRRWBBWRRWBBBRRRWBBWRRWBBBRRRWBBB ", 
+								"       RRRWBBWRRWBBBRRRWBBWRRWBBBRRRWBBWRRWBBBRRRWBBB ",
 								"       RRRWBBWRRWBBBRRRWBBWRRWBBBRRRWBBWRRWBBBRRRWBBB ",
 								" RRRWWWWWWBBBRRRWBBBRRRWBBWRRWWWWWWWWBBBRRRWWWWWWBBB  ",
-								"RRRWBBB      RRRWBBBRRRWBBB      RRRWBBWRRWBBBRRRWBBB ", 
+								"RRRWBBB      RRRWBBBRRRWBBB      RRRWBBWRRWBBBRRRWBBB ",
 								"RRRWBBB      RRRWBBBRRRWBBB      RRRWBBWRRWBBBRRRWBBB ",
 								"RRRWWWWWWWWBBWRRWWWWWWWWBBB      RRRWBBBRRRWWWWWWBBB  "};
 	int center = COLS / 2;
@@ -75,7 +75,7 @@ int save_screen(int	score, char name[5], int size)
 		print_title();
 		mvprintw(center_y + 1, center_x - ft_strlen(controls) / 2, "%s", controls);
 		attron(A_BOLD);
-		mvprintw(center_y + 3, center_x - ft_intlen(score), "%d", score);
+		mvprintw(center_y + 3, center_x - ft_nblen(score), "%d", score);
 		mvprintw(center_y + 5, center_x - 4 + selected * 2, "⮝");
 		if (selected == 0)
 			attron(A_BLINK);

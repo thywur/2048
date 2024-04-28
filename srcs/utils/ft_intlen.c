@@ -1,4 +1,6 @@
-int	ft_intlen(int n)
+#include "wkw.h"
+
+int	ft_nblen(size_t n)
 {
 	int	len;
 

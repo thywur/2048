@@ -1,6 +1,6 @@
 #include "wkw.h"
 
-int	is_win(int board[], int size)
+int	is_win(size_t board[], int size)
 {
 	int	i;
 	int	j;

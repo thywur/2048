@@ -1,6 +1,6 @@
 #include "wkw.h"
 
-static int	merge_check_right(int board[], int size)
+static int	merge_check_right(size_t board[], int size)
 {
 	int	i;
 	int	j;
@@ -34,7 +34,7 @@ static int	merge_check_right(int board[], int size)
 	return (can_merge);
 }
 
-static int	merge_check_left(int board[], int size)
+static int	merge_check_left(size_t board[], int size)
 {
 	int	i;
 	int	j;
@@ -69,7 +69,7 @@ static int	merge_check_left(int board[], int size)
 }
 
 
-static int	merge_check_up(int board[], int size)
+static int	merge_check_up(size_t board[], int size)
 {
 	int	i;
 	int	j;
@@ -103,7 +103,7 @@ static int	merge_check_up(int board[], int size)
 	return (can_merge);
 }
 
-static int	merge_check_down(int board[], int size)
+static int	merge_check_down(size_t board[], int size)
 {
 	int	i;
 	int	j;
@@ -137,7 +137,7 @@ static int	merge_check_down(int board[], int size)
 	return (can_merge);
 }
 
-int	can_merge(int board[], int size)
+int	can_merge(size_t board[], int size)
 {
 	if (merge_check_up(board, size))
 		return (1);

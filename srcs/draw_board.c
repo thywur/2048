@@ -36,7 +36,7 @@ static void	ft_end_color(int num)
 		attroff(COLOR_PAIR(9));
 }
 
-static void	draw_ascii(int board[], int size)
+static void	draw_ascii(size_t board[], int size)
 {
 	int	i;
 	int	j;
@@ -55,7 +55,7 @@ static void	draw_ascii(int board[], int size)
 		j = 0;
 		while (j <= size * case_width)
 		{
-			
+
 			if (i % case_height == 0)
 			{
 				if (j % case_width == 0)
@@ -116,7 +116,7 @@ static void	draw_ascii(int board[], int size)
 			if (board[i * size + j] != 0)
 			{
 				ft_start_color(board[i * size + j]);
-				// mvprintw(i * case_height + 3 + center_y, (j + 1) * case_width - 6 + center_x - ft_intlen(board[i * size + j]) / 2, "%d", board[i * size + j]);
+				// mvprintw(i * case_height + 3 + center_y, (j + 1) * case_width - 6 + center_x - ft_nblen(board[i * size + j]) / 2, "%d", board[i * size + j]);
 				asc_print_num(i * case_height + 3 + center_y, (j + 1) * case_width + center_x - 18, board[i * size + j]);
 				ft_end_color(board[i * size + j]);
 			}
@@ -126,7 +126,7 @@ static void	draw_ascii(int board[], int size)
 	}
 }
 
-static void	draw_simple(int board[], int size)
+static void	draw_simple(size_t board[], int size)
 {
 	int	i;
 	int	j;
@@ -145,7 +145,7 @@ static void	draw_simple(int board[], int size)
 		j = 0;
 		while (j <= size * case_width)
 		{
-			
+
 			if (i % case_height == 0)
 			{
 				if (j % case_width == 0)
@@ -206,7 +206,7 @@ static void	draw_simple(int board[], int size)
 			if (board[i * size + j] != 0)
 			{
 				ft_start_color(board[i * size + j]);
-				mvprintw(i * case_height + 3 + center_y, (j + 1) * case_width - 6 + center_x - ft_intlen(board[i * size + j]) / 2, "%d", board[i * size + j]);
+				mvprintw(i * case_height + 3 + center_y, (j + 1) * case_width - 6 + center_x - ft_nblen(board[i * size + j]) / 2, "%zu", board[i * size + j]);
 				ft_end_color(board[i * size + j]);
 			}
 			j++;
@@ -215,11 +215,11 @@ static void	draw_simple(int board[], int size)
 	}
 }
 
-static int	biggest(int board[], int size)
+static int	biggest(size_t board[], int size)
 {
 	int	i;
 	int	j;
-	int	biggest;
+	size_t	biggest;
 
 	biggest = 0;
 	i = 0;
@@ -237,7 +237,7 @@ static int	biggest(int board[], int size)
 	return (biggest);
 }
 
-void	draw_board(int board[], int size, int gamestate, int score, int high)
+void	draw_board(size_t board[], int size, int gamestate, int score, int high)
 {
 	const char *win = "YOU WON!";
 	const char *controls[] = {"        [↑/↓/←/→] to move, [R] to return to menu, [ESC] to quit",
@@ -253,16 +253,16 @@ void	draw_board(int board[], int size, int gamestate, int score, int high)
 	if (LINES > size * 8 + 10 && COLS > size * 42 + 2 && biggest(board, size) <= 65536)
 	{
 		mvprintw(1, center_x - size * 42 / 2, "%s%d", highscore, high);
-		mvprintw(1, center_x + size * 42 / 2 - ft_strlen(yourscore) - ft_intlen(score), "%s%d", yourscore, score);
+		mvprintw(1, center_x + size * 42 / 2 - ft_strlen(yourscore) - ft_nblen(score), "%s%d", yourscore, score);
 		draw_ascii(board, size);
 	}
 	else
 	{
 		mvprintw(1, center_x - size * 13 / 2, "%s%d", highscore, high);
-		mvprintw(1, center_x + size * 13 / 2 - ft_strlen(yourscore) - ft_intlen(score), "%s%d", yourscore, score);
+		mvprintw(1, center_x + size * 13 / 2 - ft_strlen(yourscore) - ft_nblen(score), "%s%d", yourscore, score);
 		draw_simple(board, size);
 	}
-	
+
 	if (gamestate & 1)
 		mvprintw(1, center_x - ft_strlen (win) / 2, "%s", win);
 	if (gamestate == 0)

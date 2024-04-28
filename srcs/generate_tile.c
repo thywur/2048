@@ -1,6 +1,6 @@
 #include "wkw.h"
 
-void	generate_tile(int board[], int size)
+void	generate_tile(size_t board[], int size)
 {
 	int	x;
 	int	y;
