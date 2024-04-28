@@ -26,6 +26,7 @@ int	main(void)
 
 	game_loop();
 
+	delwin(win);
 	endwin();
 	return (0);
 }
