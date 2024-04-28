@@ -4,22 +4,24 @@ int	update_gamestate(size_t board[], int size, int filled)
 {
 	int	i;
 	int	j;
+	int	tmp;
 
+	tmp = 0;
 	i = 0;
 	if (biggest(board, size) >= 8589934592)
-		return (1);
+		tmp |= 3;
 	while (i < size)
 	{
 		j = 0;
 		while (j < size)
 		{
 			if (board[i * size + j] >= WIN_VALUE)
-				return (1);
+				tmp |= 1;
 			j++;
 		}
 		i++;
 	}
 	if (filled == size * size && !can_merge(board, size))
-			return (2);
-	return (0);
+			tmp |= 2;
+	return (tmp);
 }

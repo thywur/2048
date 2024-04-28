@@ -8,9 +8,11 @@ static void	print_scores_of_size(char **scores, int size, int x)
 
 	while (scores[i] && i < 20)
 	{
-		if (atoi(scores[i] + 14) == size)
+		if (atoi(scores[i] + 16) == size)
 		{
-			mvprintw(3 + offset, center_x + x - ft_nblen(atoi(scores[i])) / 2, "%d", atoi(scores[i]));
+			// scores[i][14] = 0;
+			mvprintw(3 + offset, center_x + x - ft_nblen(atoi(scores[i])), "%d", atoi(scores[i]));
+			mvprintw(3 + offset, center_x + x, " %.4s", scores[i] + 12);
 			offset++;
 		}
 		i++;

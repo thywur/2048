@@ -8,14 +8,14 @@
 #include <sys/stat.h>
 #include <string.h>
 
-int	save_score(int score, char *name, int size)
+int	save_score(size_t score, char *name, int size)
 {
 	int	fd;
 
 	fd = open("highscores.txt", O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 		return (1);
-	if (dprintf(fd, "%10d%4s%2d\n", score, name, size))
+	if (dprintf(fd, "%12zu%4s%2d\n", score, name, size))
 		return (1);
 	close(fd);
 	return (0);
@@ -89,8 +89,8 @@ int	get_highscore(int size)
 	FILE	*fd;
 	char	**scores;
 	size_t	i;
-	int		highscore;
-	int		tmp;
+	size_t		highscore;
+	size_t	tmp;
 	int		tmp_size;
 
 	fd = fopen("highscores.txt", "r");
@@ -103,7 +103,7 @@ int	get_highscore(int size)
 	i = 0;
 	while (scores[i])
 	{
-		if (sscanf(scores[i], "%d%*s%d", &tmp, &tmp_size) == 2 && tmp_size == size && tmp > highscore)
+		if (sscanf(scores[i], "%zu%*s%d", &tmp, &tmp_size) == 2 && tmp_size == size && tmp > highscore)
 			highscore = tmp;
 		i++;
 	}

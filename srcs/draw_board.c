@@ -222,6 +222,7 @@ static void	draw_simple(size_t board[], int size)
 void	draw_board(size_t board[], int size, int gamestate, int score, int high)
 {
 	const char *win = "YOU WON!";
+	const char *loose = "YOU LOSE!";
 	const char *controls[] = {"        [↑/↓/←/→] to move, [R] to return to menu, [ESC] to quit",
 								"        [↑/↓/←/→] to move, [R] to return to menu, [Space] to save your score, [ESC] to quit",
 								"        [R] to return to menu, [ESC] to quit",
@@ -245,6 +246,8 @@ void	draw_board(size_t board[], int size, int gamestate, int score, int high)
 		draw_simple(board, size);
 	}
 
+	if (gamestate == 2)
+		mvprintw(1, center_x - ft_strlen(loose) / 2, "%s", loose);
 	if (gamestate & 1)
 		mvprintw(1, center_x - ft_strlen (win) / 2, "%s", win);
 	if (gamestate == 0)

@@ -48,7 +48,7 @@ static void	init_board(size_t board[], int size)
 	}
 }
 
-int	party_loop(int size, int *score, int highscore)
+int	party_loop(int size, size_t *score, int highscore)
 {
 	int		filled = 0;
 	int		has_moved = 0;
@@ -95,7 +95,7 @@ int	party_loop(int size, int *score, int highscore)
 			generate_tile(board, size);
 			filled++;
 		}
-		gamestate = update_gamestate(board, size, filled);
+		gamestate |= update_gamestate(board, size, filled);
 		if (LINES > size * 6 + 6 && COLS > size * 15 + 2)
 			draw_board(&(board[0]), size, gamestate, *score, highscore);
 		else
@@ -122,8 +122,8 @@ void	game_loop(void)
 {
 	int		size = MIN_SIZE;
 	int		ret;
-	int		score = 0;
-	int		highscore = 0;
+	size_t	score = 0;
+	size_t	highscore = 0;
 	char	name[5] = "AAAA";
 
 	if (welcome_screen())

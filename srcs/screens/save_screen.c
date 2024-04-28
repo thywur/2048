@@ -57,7 +57,7 @@ static void	print_title(void)
 	}
 }
 
-int save_screen(int	score, char name[5], int size)
+int save_screen(size_t score, char name[5], int size)
 {
 	const char	*controls = {"       [↑/↓] to scroll trough letters, [←/→] to move cursor, [⏎] to confirm, [ESC] to quit"};
 	const char	letters[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -75,7 +75,7 @@ int save_screen(int	score, char name[5], int size)
 		print_title();
 		mvprintw(center_y + 1, center_x - ft_strlen(controls) / 2, "%s", controls);
 		attron(A_BOLD);
-		mvprintw(center_y + 3, center_x - ft_nblen(score), "%d", score);
+		mvprintw(center_y + 3, center_x - ft_nblen(score), "%zu", score);
 		mvprintw(center_y + 5, center_x - 4 + selected * 2, "⮝");
 		if (selected == 0)
 			attron(A_BLINK);

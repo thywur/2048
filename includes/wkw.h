@@ -19,15 +19,15 @@
 
 enum e_const
 {
-	WIN_VALUE = 2048,
+	WIN_VALUE = 64,
 };
 
 int		init_ncurses(WINDOW *stdscr);
 
-int		move_right(size_t board[], int size, int *filled, int *score);
-int		move_left(size_t board[], int size, int *filled, int *score);
-int		move_up(size_t board[], int size, int *filled, int *score);
-int		move_down(size_t board[], int size, int *filled, int *score);
+int		move_right(size_t board[], int size, int *filled, size_t *score);
+int		move_left(size_t board[], int size, int *filled, size_t *score);
+int		move_up(size_t board[], int size, int *filled, size_t *score);
+int		move_down(size_t board[], int size, int *filled, size_t *score);
 int		can_merge(size_t board[], int size);
 void	generate_tile(size_t board[], int size);
 
@@ -39,14 +39,14 @@ void	game_loop(void);
 void	error_screen(char *str);
 int		welcome_screen();
 int		menu_screen(int *size);
-int		save_screen(int	score, char name[5], int size);
+int		save_screen(size_t score, char name[5], int size);
 int		size_screen(int *size);
 int		scores_screen();
 
 void	draw_board(size_t board[], int size, int gamestate, int score, int high);
 
 void	asc_print_num(int y, int x, int num);
-int		save_score(int score, char *name, int size);
+int		save_score(size_t score, char *name, int size);
 int		get_highscore(int size);
 // int		sort_scores();
 void	sort_scores(char **scores);
